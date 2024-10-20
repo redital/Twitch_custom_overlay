@@ -1,0 +1,7 @@
+ngrok.exe
+parameti_segreti.py
+app_token.ippo
+user_token.ippo
+run_ngrok.bat
+venv
+__pycache__

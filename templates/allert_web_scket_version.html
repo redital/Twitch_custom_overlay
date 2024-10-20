@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Overlay</title>
+    <script src="https://cdn.socket.io/4.6.0/socket.io.min.js"
+        integrity="sha384-c79GN5VsunZvi+Q/WObgk2in0CbZsHnjEqvFxC5DxHn9lTfNce2WW6h2pH6u/kF+"
+        crossorigin="anonymous"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f000;
+        }
+
+        #image_container {
+            text-align: center;
+            opacity: 0;
+            /* Inizialmente invisibile */
+            position: fixed;
+            top: 150px;
+            right: 350px;
+        }
+
+        .fade-in {
+            transition: opacity 0.3s ease;
+            /* Durata del fade in */
+        }
+
+        .fade-out {
+            transition: opacity 1.0s ease;
+            /* Durata del fade out */
+        }
+
+        @font-face {
+            font-family: custom;
+            src: url('static/Font/Happy Selfie.ttf');
+        }
+        
+        #testo {
+            font-size: 33px;
+            font-family: custom;
+            -webkit-text-stroke: 1px rgb(255, 255, 255);
+            text-align: center;
+            color: black;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="image_container" id="image_container" height="300">
+        <img id="image" src="static\prova\greenscreen_antialiased.png" height="250" />
+        <p id="testo"> testo di prova</p>
+        <audio id="audio" src="static\prova\1.mp3" style="display:none;"></audio>
+    </div>
+    <script src="static\js\script.js"></script>
+</body>
+
+</html>

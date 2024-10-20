@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Overlay</title>
+    <style>
+        #image {
+            display: none;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        #image.show {
+            display: block;
+            opacity: 1;
+        }
+
+        #image.hide {
+            opacity: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="image_container" style="position:fixed; top: 150px;; right:350px;" height="300">
+        <img id="test_image" src="static\prova\greenscreen_antialiased.png" height="250" />
+        <p style="text-align: center; font-size: 40px;"> testo di prova</p>
+    </div>
+
+
+    <p id="errore">
+
+    </p>
+    <img id="image" src="static\prova\greenscreen_antialiased.png" alt="Immagine allert non disponibile" style="position:fixed; top: 150px;; right:350px;" height="250" />
+    <audio id="audio" src="static\prova\1.mp3" style="display:none;"></audio>
+
+    <script>
+        
+        const time_delta = 10000;
+        let intervalId = setInterval(inviaRichiesta, time_delta);
+
+
+        function playSoundAndShowImage() {
+            clearInterval(intervalId);
+            const image = document.getElementById('image');
+            const image_container = document.getElementById('image_container');
+            const audio = document.getElementById('audio');
+            
+            image.classList.add('show');
+            audio.play();
+
+            audio.onended = function () {
+                image.classList.add('hide');
+                image_container.classList.add('hidden')
+                setTimeout(() => {
+                    image.classList.remove('show', 'hide');
+                    image_container.classList.remove('hidden')
+                }, 1000); // Tempo per completare l'animazione di fade out
+                intervalId = setInterval(inviaRichiesta, time_delta);
+            };
+        }
+
+        function gestisciRisposta(body) {
+            var image_src = body.data.image_src
+            var audio_src = body.data.audio_src
+
+            document.getElementById('image').src = image_src;
+            document.getElementById('audio').src = audio_src;
+
+            playSoundAndShowImage();
+        }
+
+
+        const url_get_pending_reward_request = window.location.origin + "/get_pending_reward_request"
+        
+        function inviaRichiesta() {
+            fetch(url_get_pending_reward_request)
+                .then(response => {
+                    if (!response.ok) {
+                        if (response.status === 404) {
+                            // Non fare nulla
+                        } else {
+                            document.getElementById('errore').innerText = `Errore: ${response.status} - ${response.statusText}`;
+                        }
+                    }
+                    else {
+                        return response.json().then(gestisciRisposta)
+                            .catch(error => {
+                                document.getElementById('errore').innerText = `Errore di rete: ${error.message}`;
+                            });
+                    }
+                })
+
+        }
+
+
+    </script>
+</body>
+
+</html>
