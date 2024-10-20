@@ -25,12 +25,12 @@ def pop_request():
 
 def random_imperium_handler(info):
 
-    cartelle = next(os.walk("tutorial/static/Imperium"))[1]
+    cartelle = next(os.walk("static/Imperium"))[1]
 
     cartella = random.choice(cartelle)
 
 
-    files = next(os.walk("tutorial/static/Imperium/{}".format(cartella)))[2]
+    files = next(os.walk("static/Imperium/{}".format(cartella)))[2]
     mp3_files = [i for i in files if i.split(".")[-1].lower() == "mp3"]
 
     audio = random.choice(mp3_files)
