@@ -159,4 +159,4 @@ def fake_request():
 if __name__ == '__main__':
     #app.run(port=443,debug=True, ssl_context="adhoc")
     socketio.init_app(app)
-    socketio.run(app,port=443,debug=True, ssl_context="adhoc")
+    socketio.run(app,debug=True, ssl_context="adhoc")
