@@ -25,7 +25,7 @@ services:
       - "http"
       - "http://host.docker.internal:80"
     environment:
-      - NGROK_AUTH_TOKEN=${NGROK_AUTH_TOKEN:-placeholder}
+      - NGROK_AUTHTOKEN=${NGROK_AUTH_TOKEN:-placeholder}
       - DOMINIO=${DOMINIO:-placeholder}
     ports:
       - 4040:4040
