@@ -8,14 +8,14 @@ flask_app_config = {
 }
 
 
-CLIENT_ID = os.environ.get("DB_HOST", "placeholder")
-SECRET = os.environ.get("DB_HOST", "placeholder")
-BROADCASTER_ID = os.environ.get("DB_HOST", 0)
-DOMINIO = os.environ.get("DB_HOST", "placeholder")
-REDIRECT_URI_AUTHORIZATION_CODE = os.environ.get("DB_HOST", DOMINIO + "/authorization_code_interceptor")
-REDIRECT_URI_CHANNEL_POINT_NOTIFICATION = os.environ.get("DB_HOST", DOMINIO + "/channel_point_notification")
+CLIENT_ID = os.environ.get("CLIENT_ID", "placeholder")
+SECRET = os.environ.get("SECRET", "placeholder")
+BROADCASTER_ID = os.environ.get("BROADCASTER_ID", 0)
+DOMINIO = os.environ.get("DOMINIO", "placeholder")
+REDIRECT_URI_AUTHORIZATION_CODE = os.environ.get("REDIRECT_URI_AUTHORIZATION_CODE", DOMINIO + "/authorization_code_interceptor")
+REDIRECT_URI_CHANNEL_POINT_NOTIFICATION = os.environ.get("REDIRECT_URI_CHANNEL_POINT_NOTIFICATION", DOMINIO + "/channel_point_notification")
 
-NGROK_AUTH_TOKEN = os.environ.get("DB_HOST", "placeholder")
+NGROK_AUTH_TOKEN = os.environ.get("NGROK_AUTH_TOKEN", "placeholder")
 
 
 print(flask_app_config)
