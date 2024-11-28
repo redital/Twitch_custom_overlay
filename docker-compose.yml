@@ -6,8 +6,7 @@ services:
       - FLASK_APP=main.py
       - FLASK_DEBUG=${FLASK_DEBUG:-True}
       - FLASK_HOST=${FLASK_HOST:-0.0.0.0}
-      - FLASK_PORT=${FLASK_PORT:-5000}     
-      - SECRET_KEY=${SSL_CONTEX:-adhoc}
+      - FLASK_PORT=${FLASK_PORT:-5000}
 
       - CLIENT_ID=${CLIENT_ID:-placeholder}
       - SECRET=${SECRET:-placeholder}
@@ -16,14 +15,15 @@ services:
       - NGROK_AUTH_TOKEN=${NGROK_AUTH_TOKEN:-placeholder}
       - DOMINIO=${DOMINIO:-placeholder}
     ports:
-      - "8211:${FLASK_PORT}"
+      - "8080:${FLASK_PORT}"
     pull_policy: build
 
   ngrok:
     image: ngrok/ngrok:latest
     command:
       - "http"
-      - "http://host.docker.internal:80"
+      - "--domain=${DOMINIO:-placeholder}"
+      - "twitch-overlay:${FLASK_PORT:-5000}"
     environment:
       - NGROK_AUTHTOKEN=${NGROK_AUTH_TOKEN:-placeholder}
       - DOMINIO=${DOMINIO:-placeholder}
