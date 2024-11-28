@@ -2,7 +2,7 @@ from flask import Flask, jsonify, make_response,redirect,render_template
 from flask import request as flask_request
 from urllib.parse import urlencode
 
-import parameti_segreti
+import config
 from methods import twitch
 from methods import rewards_request_handler
 from methods.events import socketio, handle_incoming_request
@@ -13,7 +13,7 @@ app = Flask(__name__)
 # Homepage a http://localhost:443
 @app.route("/")
 def hello_world():
-    twitch.authentication(parameti_segreti.CLIENT_ID,parameti_segreti.SECRET)
+    twitch.authentication(config.CLIENT_ID,config.SECRET)
     return "<p></p> <p>Id streamer: {}</p>".format(twitch.get_broadcaster_id("redital00"))
 
 @app.route("/authorization_code_interceptor")
@@ -21,18 +21,18 @@ def authorization_code_interceptor():
     code = flask_request.args.get('code')
     if code == None:
         return "Error {}: {}".format(flask_request.args.get('error'), flask_request.args.get('error_description'))
-    twitch.authentication_authorized(parameti_segreti.CLIENT_ID,parameti_segreti.SECRET,parameti_segreti.REDIRECT_URI_AUTHORIZATION_CODE,code,force=True) 
+    twitch.authentication_authorized(config.CLIENT_ID,config.SECRET,config.REDIRECT_URI_AUTHORIZATION_CODE,code,force=True) 
     return "Grazie per aver autorizzato per gli scope {}".format(flask_request.args.get('scope'))
 
 @app.route("/authorize")
 def authorize():
     scopes = flask_request.args.getlist('scope')
-    url = twitch.get_auth_url(parameti_segreti.CLIENT_ID,parameti_segreti.REDIRECT_URI_AUTHORIZATION_CODE,scopes)
+    url = twitch.get_auth_url(config.CLIENT_ID,config.REDIRECT_URI_AUTHORIZATION_CODE,scopes)
     return '<p>{}</p><a href="{}">Connect with Twitch</a>'.format(" ".join(scopes),url)
 
 @app.route("/custom_rewards_list")
 def lista_premi():
-    twitch.refresh_token(parameti_segreti.CLIENT_ID,parameti_segreti.SECRET)
+    twitch.refresh_token(config.CLIENT_ID,config.SECRET)
     headers = twitch.get_headers(token_tipe="user")
     headers["Content-Type"] = "application/json"
     data = {
@@ -45,7 +45,7 @@ def lista_premi():
 
 @app.route("/list")
 def lista_sottoscrizioni():
-    twitch.authentication(parameti_segreti.CLIENT_ID,parameti_segreti.SECRET)
+    twitch.authentication(config.CLIENT_ID,config.SECRET)
     headers = twitch.get_headers(token_tipe="app")
     res = twitch.send_twitch_request("GET","eventsub/subscriptions",headers=headers)
     return res.json()
@@ -55,7 +55,7 @@ def lista_sottoscrizioni():
 def sottoscrivi_evento(service):
     version = flask_request.args.get('version')
     id = flask_request.args.get('id')
-    twitch.refresh_token(parameti_segreti.CLIENT_ID,parameti_segreti.SECRET)
+    twitch.refresh_token(config.CLIENT_ID,config.SECRET)
     headers = twitch.get_headers(token_tipe="app")
     headers["Content-Type"] = "application/json"
     data = {
@@ -67,7 +67,7 @@ def sottoscrivi_evento(service):
             },
         "transport": {
             "method": "webhook",
-            "callback": parameti_segreti.REDIRECT_URI_CHANNEL_POINT_NOTIFICATION,
+            "callback": config.REDIRECT_URI_CHANNEL_POINT_NOTIFICATION,
             "secret": "s3cre77890ab",
         },
     }
@@ -91,7 +91,7 @@ def sottoscrivi_evento_riscatto_punti_canale(nome_premio):
 @app.route("/subscribe/delete/<id>")
 def delete_subscription(id):
     #id = flask_request.args.get('id')
-    twitch.refresh_token(parameti_segreti.CLIENT_ID,parameti_segreti.SECRET)
+    twitch.refresh_token(config.CLIENT_ID,config.SECRET)
     headers = twitch.get_headers(token_tipe="app")
     headers["Content-Type"] = "application/json"
     params = {
@@ -153,10 +153,6 @@ def fake_request():
 
 
 
-
-
-
 if __name__ == '__main__':
-    #app.run(port=443,debug=True, ssl_context="adhoc")
     socketio.init_app(app)
-    socketio.run(app,debug=True, ssl_context="adhoc")
+    socketio.run(app,**config.flask_app_config)

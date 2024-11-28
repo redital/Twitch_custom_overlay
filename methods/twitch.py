@@ -2,7 +2,7 @@ import hmac
 import hashlib
 import json
 import requests
-import parameti_segreti
+import config
 import datetime
 from urllib.parse import urlencode
 
@@ -195,7 +195,7 @@ def get_headers(token_tipe = "app"):
         print("token_tipe invalido")
         return
     headers = {
-        "Client-ID": parameti_segreti.CLIENT_ID,
+        "Client-ID": config.CLIENT_ID,
         "Authorization": token["full_token"]
     }
     return headers
@@ -244,7 +244,7 @@ def challenge_response():
 
 def verify_signature(request):
     hmac_message = request.headers['Twitch-Eventsub-Message-Id'] + request.headers['Twitch-Eventsub-Message-Timestamp'] + request.data.decode()
-    message_signature = "sha256=" + hmac.new(str.encode(parameti_segreti.EVENTSUB_SECRET), str.encode(hmac_message), hashlib.sha256).hexdigest()
+    message_signature = "sha256=" + hmac.new(str.encode(config.EVENTSUB_SECRET), str.encode(hmac_message), hashlib.sha256).hexdigest()
     if message_signature == request.headers['Twitch-Eventsub-Message-Signature']:
         return True
     return False
