@@ -3,7 +3,6 @@ version: '3.8'
 services:
   twitch-overlay:
     container_name: twitch-overlay
-    build: .
     environment:
       - FLASK_APP=main.py
       - FLASK_DEBUG=${FLASK_DEBUG:-True}
@@ -19,5 +18,6 @@ services:
       - DOMINIO=${DOMINIO:-placeholder}
     ports:
       - "8211:${FLASK_PORT}"
+    build: .
     pull_policy: build
 
