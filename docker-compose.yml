@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  twitch-overlay:
+    container_name: twitch-overlay
+    build: .
+    environment:
+      - FLASK_APP=main.py
+      - FLASK_DEBUG=${FLASK_DEBUG:-True}
+      - FLASK_HOST=${FLASK_HOST:-0.0.0.0}
+      - FLASK_PORT=${FLASK_PORT:-5000}     
+      - SECRET_KEY=${SSL_CONTEX:-adhoc}
+
+      - CLIENT_ID=${CLIENT_ID:-placeholder}
+      - SECRET=${SECRET:-placeholder}
+      - BROADCASTER_ID=${BROADCASTER_ID:-placeholder}
+      
+      - NGROK_AUTH_TOKEN=${NGROK_AUTH_TOKEN:-placeholder}
+      - DOMINIO=${DOMINIO:-placeholder}
+    ports:
+      - "8211:${FLASK_PORT}"
+    pull_policy: build
+
