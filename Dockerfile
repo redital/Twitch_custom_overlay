@@ -13,8 +13,6 @@ RUN pip install --upgrade pip
 # Installa le dipendenze
 RUN pip install --no-cache-dir -r requirements.txt
 
-RUN ngrok http --domain=${DOMINIO} ${FLASK_HOST}:${FLASK_PORT}
-
 # Espone la porta 5000
 EXPOSE ${FLASK_PORT}
 
