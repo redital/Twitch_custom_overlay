@@ -41,7 +41,6 @@ def store_token():
     with open("app_token.ippo","w") as f:
         json.dump(app_token, f)
 
-load_token()
 
 #Client credentials grant flow
 #App Token
@@ -248,3 +247,10 @@ def verify_signature(request):
     if message_signature == request.headers['Twitch-Eventsub-Message-Signature']:
         return True
     return False
+
+
+
+try:
+    load_token()
+except:
+    authentication(config.CLIENT_ID, config.SECRET,force = False)
