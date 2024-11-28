@@ -4,7 +4,8 @@ flask_app_config = {
     "debug": os.environ.get("FLUSK_DEBUG_OPTION", True),
     "host": os.environ.get("FLASK_HOST", None),
     "port": os.environ.get("FLASK_PORT", 443),
-    "ssl_context": os.environ.get("SSL_CONTEX","adhoc")
+    "ssl_context": os.environ.get("SSL_CONTEX","adhoc"),
+    "allow_unsafe_werkzeug": os.environ.get("UNSAFE_WERKZEUG",True),
 }
 
 
