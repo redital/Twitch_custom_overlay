@@ -12,7 +12,7 @@ flask_app_config = {
 CLIENT_ID = os.environ.get("CLIENT_ID", "placeholder")
 SECRET = os.environ.get("SECRET", "placeholder")
 BROADCASTER_ID = os.environ.get("BROADCASTER_ID", 0)
-DOMINIO = os.environ.get("DOMINIO", "placeholder")
+DOMINIO = "https://" + os.environ.get("DOMINIO", "placeholder")
 REDIRECT_URI_AUTHORIZATION_CODE = os.environ.get("REDIRECT_URI_AUTHORIZATION_CODE", DOMINIO + "/authorization_code_interceptor")
 REDIRECT_URI_CHANNEL_POINT_NOTIFICATION = os.environ.get("REDIRECT_URI_CHANNEL_POINT_NOTIFICATION", DOMINIO + "/channel_point_notification")
 
