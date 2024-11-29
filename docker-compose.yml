@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   twitch-overlay:
     container_name: twitch-overlay
