@@ -5,3 +5,4 @@ user_token.ippo
 run_ngrok.bat
 venv
 __pycache__
+config.env
