@@ -18,5 +18,5 @@ services:
       - NGROK_AUTH_TOKEN=${NGROK_AUTH_TOKEN:-placeholder}
       - DOMINIO=${DOMINIO:-placeholder}
     ports:
-      - "8211:${FLASK_PORT}"
+      - "8080:${FLASK_PORT}"
     pull_policy: build
