@@ -8,7 +8,7 @@ services:
       - FLASK_APP=main.py
       - FLASK_DEBUG=${FLASK_DEBUG:-True}
       - FLASK_HOST=${FLASK_HOST:-0.0.0.0}
-      - FLASK_PORT=${FLASK_PORT:-5000}W
+      - FLASK_PORT=${FLASK_PORT:-5000}
 
       - CLIENT_ID=${CLIENT_ID:-placeholder}
       - SECRET=${SECRET:-placeholder}
