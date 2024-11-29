@@ -24,7 +24,7 @@ services:
     command:
       - "http"
       - "--domain=${DOMINIO:-placeholder}"
-      - "http://host.docker.internal:${FLASK_PORT:-5000}"
+      - "twitch-overlay:${FLASK_PORT:-5000}"
     environment:
       - NGROK_AUTHTOKEN=${NGROK_AUTH_TOKEN:-placeholder}
       - DOMINIO=${DOMINIO:-placeholder}
