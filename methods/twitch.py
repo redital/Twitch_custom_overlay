@@ -139,8 +139,11 @@ def make_user_token_request(url,headers,params):
     user_token["token_expiration_date"] = expires.timestamp()
     user_token["token_readable_expiration_date"] = str(expires)
     user_token["refresh_token"] = response_body["refresh_token"]
-    user_token["scope"] = response_body["scope"]
-
+    try:
+        user_token["scope"] = response_body["scope"]
+    except:
+        pass
+    
     store_token()
 
 
