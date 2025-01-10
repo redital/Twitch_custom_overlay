@@ -39,8 +39,6 @@ def lista_premi():
         "broadcaster_id": twitch.get_broadcaster_id("redital00")
         }
     res = twitch.send_twitch_request("GET","channel_points/custom_rewards",params=data,headers=headers)
-    print(res)
-    print(res.json())
     itemlist = res.json()["data"]
     item_dict = {v["title"]:v for v in itemlist}
     return jsonify(item_dict)
@@ -84,9 +82,6 @@ def sottoscrivi_evento_riscatto_punti_canale(nome_premio):
     premi = lista_premi().get_json()
     premio = premi[nome_premio]
     id_premio = premio["id"]
-
-    print(id_premio)
-
     
     return redirect("/subscribe/{}?version={}&id={}".format(servizio,versione,id_premio))
 
