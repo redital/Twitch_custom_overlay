@@ -1,7 +1,6 @@
 services:
   twitch-overlay:
     container_name: twitch-overlay
-    build: .
     environment:
       - FLASK_APP=main.py
       - FLASK_DEBUG=${FLASK_DEBUG:-True}
@@ -16,6 +15,8 @@ services:
       - DOMINIO=${DOMINIO:-placeholder}
     ports:
       - "8080:${FLASK_PORT}"
+    restart: unless-stopped
+    build: .
     pull_policy: build
 
   ngrok:
