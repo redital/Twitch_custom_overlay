@@ -59,9 +59,23 @@ def lurk_handler(info):
     info["data"]["testo"]=""
     return info
 
+def poesia_handler(info):
+    info["data"]["image_src"]="static/Poesia/libro.png"
+    info["data"]["audio_src"]="static/Poesia/Notifica Poesia.mp3"
+    info["data"]["testo"]=""
+    return info
+
+def triplo_venti_handler(info):
+    info["data"]["image_src"]="static/TRIPLO VENTI/il nulla.png"
+    info["data"]["audio_src"]="static/TRIPLO VENTI/TRIPLO_VENTI.mp3"
+    info["data"]["testo"]=""
+    return info
+
 handlers = {
     "Random Imperium" : random_imperium_handler,
     "Poo Bee" : poo_bee_handler,
     "A munnezz d'a gent" : a_munnezz_handler,
-    "Lurkino <3 " : lurk_handler
+    "Lurkino <3 " : lurk_handler,
+    "Leggiamo una poesia" : poesia_handler,
+    "TRIPLO VENTI" : triplo_venti_handler
 }
