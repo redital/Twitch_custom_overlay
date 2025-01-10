@@ -124,6 +124,7 @@ def make_user_token_request(url,headers,params):
         print(response.text)
         return
     response_body = response.json()
+    print(response_body)
 
     # for k,v in response_body.items():
     #    print(k,v,sep=": ")
