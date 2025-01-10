@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homepage - Lista Endpoint</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+            background-color: #f8f9fa;
+        }
+        h1 {
+            color: #343a40;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            background: #ffffff;
+            border: 1px solid #ddd;
+            margin: 5px 0;
+            padding: 10px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        a {
+            text-decoration: none;
+            color: #007bff;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .method {
+            font-size: 0.9em;
+            color: #6c757d;
+            margin-left: 10px;
+        }
+        .banner {
+            background-color: #ffc107;
+            color: #212529;
+            text-align: center;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="banner">Ricordati di Autenticarti!</div>
+    <h1>Lista Endpoint</h1>
+    <ul>
+        <!-- Popolamento dinamico con endpoint -->
+        <li>
+            <span>
+                <a href="/">/</a>
+                <span class="method">[GET]</span>
+            </span>
+        </li>
+        <li>
+            <span>
+                <a href="/authorization_code_interceptor">/authorization_code_interceptor</a>
+                <span class="method">[GET]</span>
+            </span>
+        </li>
+        <li>
+            <span>
+                <a href="/authorize">/authorize</a>
+                <span class="method">[GET]</span>
+            </span>
+        </li>
+        <li>
+            <span>
+                <a href="/custom_rewards_list">/custom_rewards_list</a>
+                <span class="method">[GET]</span>
+            </span>
+        </li>
+        <li>
+            <span>
+                <a href="/list">/list</a>
+                <span class="method">[GET]</span>
+            </span>
+        </li>
+        <li>
+            <span>
+                <a href="/subscribe/<service>">/subscribe/&lt;service&gt;</a>
+                <span class="method">[GET]</span>
+            </span>
+        </li>
+        <li>
+            <span>
+                <a href="/subscribe/punti_canale/<nome_premio>">/subscribe/punti_canale/&lt;nome_premio&gt;</a>
+                <span class="method">[GET]</span>
+            </span>
+        </li>
+        <li>
+            <span>
+                <a href="/subscribe/delete/<id>">/subscribe/delete/&lt;id&gt;</a>
+                <span class="method">[GET]</span>
+            </span>
+        </li>
+        <li>
+            <span>
+                <a href="/channel_point_notification">/channel_point_notification</a>
+                <span class="method">[POST]</span>
+            </span>
+        </li>
+        <li>
+            <span>
+                <a href="/render">/render</a>
+                <span class="method">[GET]</span>
+            </span>
+        </li>
+        <li>
+            <span>
+                <a href="/fake_request">/fake_request</a>
+                <span class="method">[GET]</span>
+            </span>
+        </li>
+    </ul>
+</body>
+</html>

@@ -14,7 +14,7 @@ app = Flask(__name__)
 @app.route("/")
 def hello_world():
     twitch.authentication(config.CLIENT_ID,config.SECRET)
-    return "<p></p> <p>Id streamer: {}</p>".format(twitch.get_broadcaster_id("redital00"))
+    return render_template("home.html")
 
 @app.route("/authorization_code_interceptor")
 def authorization_code_interceptor():
