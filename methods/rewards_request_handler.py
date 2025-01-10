@@ -61,7 +61,7 @@ def lurk_handler(info):
 
 def poesia_handler(info):
     info["data"]["image_src"]="static/Poesia/libro.png"
-    info["data"]["audio_src"]="static/Poesia/Notifica Poesia.mp3"
+    info["data"]["audio_src"]="static/Poesia/Notifica-Poesia.mp3"
     info["data"]["testo"]=""
     return info
 
