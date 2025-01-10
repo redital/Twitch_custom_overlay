@@ -96,31 +96,7 @@ def authentication_authorized(client_id, client_secret, redirect_uri, auth_code,
             "grant_type": "authorization_code",
             "redirect_uri" : redirect_uri
         }
-
-    response = requests.post(url, headers=headers,params=params)
-    if response.status_code != 200:
-        print("ERRORE IN FASE DI AUTENTICAZIONE")
-        print(response.text)
-        return
-    
-    response_body = response.json()
-
-    #for k,v in response_body.items():
-    #    print(k,v,sep=": ")
-
-    now = datetime.datetime.now()
-    delta = datetime.timedelta(seconds = response_body["expires_in"])
-    expires = now + delta
-
-    user_token["text"] = response_body["access_token"]
-    user_token["token_type"] = response_body["token_type"]
-    user_token["full_token"] = response_body["token_type"].capitalize() + " " + response_body["access_token"]
-    user_token["token_expiration_date"] = expires.timestamp()
-    user_token["token_readable_expiration_date"] = str(expires)
-    user_token["refresh_token"] = response_body["refresh_token"]
-    user_token["scope"] = response_body["scope"]
-
-    store_token()
+    make_user_token_request(url,headers,params)
 
 
 def refresh_token(client_id, client_secret,force = False):
@@ -139,8 +115,10 @@ def refresh_token(client_id, client_secret,force = False):
         }
     
     formatted_params = "?{}".format(urlencode(params))
+    make_user_token_request(url+formatted_params,headers,params)
 
-    response = requests.post(url + formatted_params, headers=headers,params=params)
+def make_user_token_request(url,headers,params):
+    response = requests.post(url, headers=headers,params=params)
     if response.status_code != 200:
         print("ERRORE IN FASE DI AUTENTICAZIONE")
         print(response.text)
