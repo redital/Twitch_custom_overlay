@@ -18,7 +18,8 @@ def hello_world():
 
 @app.route("/authorization_code_interceptor")
 def authorization_code_interceptor():
-    print(flask_request.args.items())
+    for k,v in flask_request.args.items():
+        print(k,v)
     code = flask_request.args.get('code')
     if code == None:
         return "Error {}: {}".format(flask_request.args.get('error'), flask_request.args.get('error_description'))
