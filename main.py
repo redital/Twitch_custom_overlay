@@ -39,6 +39,8 @@ def lista_premi():
         "broadcaster_id": twitch.get_broadcaster_id("redital00")
         }
     res = twitch.send_twitch_request("GET","channel_points/custom_rewards",params=data,headers=headers)
+    print(res)
+    print(res.json())
     itemlist = res.json()["data"]
     item_dict = {v["title"]:v for v in itemlist}
     return jsonify(item_dict)
