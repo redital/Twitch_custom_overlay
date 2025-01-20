@@ -40,7 +40,6 @@
         #image_container {
             text-align: center;
             opacity: 0;
-            /* Inizialmente invisibile */
             position: fixed;
             top: 150px;
             right: 350px;
@@ -48,19 +47,17 @@
 
         .fade-in {
             transition: opacity 0.3s ease;
-            /* Durata del fade in */
         }
 
         .fade-out {
             transition: opacity 1.0s ease;
-            /* Durata del fade out */
         }
 
         @font-face {
             font-family: custom;
             src: url('static/Font/Happy Selfie.ttf');
         }
-        
+
         #testo {
             font-size: 33px;
             font-family: custom;
@@ -77,13 +74,23 @@
         <div id="progress-bar"></div>
     </div>
 
+    <!-- Audio per quando la barra arriva al 100% -->
+    <audio id="completion-sound" src="static\Barra di Punti canale spesi\Notifica-Poesia.mp3" style="display:none;"></audio>
+
+
     <div class="image_container" id="image_container" height="300">
         <img id="image" src="static\prova\greenscreen_antialiased.png" height="250" />
-        <p id="testo"> testo di prova</p>
+        <p id="testo"> Testo di prova</p>
         <audio id="audio" src="static\prova\1.mp3" style="display:none;"></audio>
     </div>
 
-    <script src="static\js\script.js"></script>
+    <!-- Passaggio delle variabili total_cost e max_cost come data-attributes -->
+    <div id="cost-info"
+         data-total-cost="{{ total_cost }}"
+         data-max-cost="{{ max_cost }}">
+    </div>
+
+    <script src="static/js/script.js"></script>
 </body>
 
 </html>

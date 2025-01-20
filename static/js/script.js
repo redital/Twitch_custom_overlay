@@ -1,8 +1,12 @@
 const socket = io();
 
+// Ottieni i valori di total_cost e max_cost tramite data-attributes
+const costInfoElement = document.getElementById('cost-info');
+var totalCost = parseFloat(costInfoElement.getAttribute('data-total-cost'));  // Valore di total_cost
+const maxCost = parseFloat(costInfoElement.getAttribute('data-max-cost'));  // Valore di max_cost
+
 let requestQueue = []; // Coda per le richieste
 let isProcessing = false; // Flag per gestire il processo
-let totalCost = 0; // Variabile per accumulare il costo totale
 
 // Funzione principale per gestire la coda delle richieste
 function processQueue() {
@@ -18,12 +22,8 @@ function processQueue() {
     var testo = currentRequest.testo;
     var costo = currentRequest.costo;
 
-    // Aggiorna il totale del costo
-    totalCost += costo;
-    console.log(totalCost); 
-
-    // Calcola la percentuale di progresso
-    updateProgressBar();
+    // Aggiorna il costo totale
+    updateTotalCost(costo);
 
     // Aggiorna l'immagine e l'audio
     document.getElementById('image').src = image_src;
@@ -51,15 +51,6 @@ socket.on("incoming-request", function (data) {
     processQueue();
 });
 
-// Funzione per aggiornare la barra di progresso
-function updateProgressBar() {
-    const progressBar = document.getElementById('progress-bar');
-    const maxCost = 1000; // Definisci il costo massimo per il 100% (può essere adattato)
-    
-    let progress = Math.min((totalCost / maxCost) * 100, 100); // Calcola la percentuale
-    progressBar.style.width = progress + "%"; // Aggiorna la larghezza della barra
-}
-
 // Funzione per riprodurre audio e mostrare immagine
 function playSoundAndShowImage() {
     return new Promise((resolve) => {
@@ -81,4 +72,42 @@ function playSoundAndShowImage() {
             resolve(); // Risolvi la promessa quando l'audio è finito
         };
     });
+}
+
+// Funzione per aggiornare il totale del costo
+function updateTotalCost(costo) {
+    totalCost += costo;
+    calculateProgress();
+}
+
+// Funzione per calcolare e aggiornare la barra di progresso
+function calculateProgress() {
+    const progress = Math.min((totalCost / maxCost) * 100, 100); // Calcola la percentuale
+    updateProgressBar(progress);
+}
+
+// Funzione per aggiornare la barra di progresso
+function updateProgressBar(progress) {
+    const progressBar = document.getElementById('progress-bar');
+    progressBar.style.width = progress + "%"; // Aggiorna la larghezza della barra
+}
+
+// Calcola e aggiorna la barra di progresso all'inizializzazione
+calculateProgress();
+
+// Funzione per aggiornare la barra di progresso
+function updateProgressBar(progress) {
+    const progressBar = document.getElementById('progress-bar');
+    progressBar.style.width = progress + "%"; // Aggiorna la larghezza della barra
+
+    // Verifica se la barra ha raggiunto il 100%
+    if (progress === 100) {
+        playCompletionSound(); // Riproduci il suono quando la barra arriva al 100%
+    }
+}
+
+// Funzione per riprodurre il suono quando la barra raggiunge il 100%
+function playCompletionSound() {
+    const completionSound = document.getElementById('completion-sound');
+    completionSound.play(); // Riproduce il suono
 }

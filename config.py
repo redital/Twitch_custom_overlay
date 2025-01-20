@@ -17,4 +17,5 @@ REDIRECT_URI_CHANNEL_POINT_NOTIFICATION = os.environ.get("REDIRECT_URI_CHANNEL_P
 NGROK_AUTH_TOKEN = os.environ.get("NGROK_AUTH_TOKEN", "placeholder")
 
 
+PUNTI_CANALE_FILE = os.environ.get("PUNTI_CANALE_FILE","placeholder")
 

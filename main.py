@@ -6,6 +6,7 @@ import config
 from methods import twitch
 from methods import rewards_request_handler
 from methods.events import socketio, handle_incoming_request
+import barra_punti_canale
 
 app = Flask(__name__)
 
@@ -130,7 +131,9 @@ def channel_point_notification():
 
 @app.route("/render")
 def prova_render():
-    return render_template("allert_web_scket_version.html")
+    total_cost = barra_punti_canale.total_cost
+    max_cost = barra_punti_canale.max_cost
+    return render_template("allert_web_scket_version.html", total_cost=total_cost, max_cost=max_cost)
 
 @app.route("/fake_request")
 def fake_request():
