@@ -12,7 +12,11 @@ def add_request(request):
     info["reward_prompt"]=request["reward"]["prompt"]
     info["reward_cost"]=request["reward"]["cost"]
     info["data"]={}
-    info = handlers[info["reward_title"]](info)
+    try:
+        info = handlers[info["reward_title"]](info)
+    except KeyError:
+        print("Ricompensa punti canale {} non gestita".format(info["reward_title"]))
+        return
     pending_requests.append(info)
 
 def pop_request():
