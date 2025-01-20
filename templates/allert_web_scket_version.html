@@ -37,6 +37,18 @@
             transition: width 0.3s ease;
         }
 
+        /* Classe per la dissolvenza della barra di progresso */
+        .fade-out-bar {
+            opacity: 0;
+            transition: opacity 1s ease; /* Imposta una transizione di 1 secondo */
+        }
+
+        /* Classe per la dissolvenza dell'intero contenitore della barra di progresso */
+        .fade-out-bar-container {
+            opacity: 0;
+            transition: opacity 1s ease; /* Imposta una transizione di 1 secondo */
+        }
+
         #image_container {
             text-align: center;
             opacity: 0;
@@ -87,7 +99,8 @@
     <!-- Passaggio delle variabili total_cost e max_cost come data-attributes -->
     <div id="cost-info"
          data-total-cost="{{ total_cost }}"
-         data-max-cost="{{ max_cost }}">
+         data-max-cost="{{ max_cost }}"
+         data-show-progress-bar="{{ show_progress_bar }}">
     </div>
 
     <script src="static/js/script.js"></script>

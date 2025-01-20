@@ -1,12 +1,18 @@
 const socket = io();
 
-// Ottieni i valori di total_cost e max_cost tramite data-attributes
+// Ottieni i valori di total_cost, max_cost e show_progress_bar tramite data-attributes
 const costInfoElement = document.getElementById('cost-info');
-var totalCost = parseFloat(costInfoElement.getAttribute('data-total-cost'));  // Valore di total_cost
-const maxCost = parseFloat(costInfoElement.getAttribute('data-max-cost'));  // Valore di max_cost
+var totalCost = parseFloat(costInfoElement.getAttribute('data-total-cost'));
+const maxCost = parseFloat(costInfoElement.getAttribute('data-max-cost'));
+var showProgressBar = costInfoElement.getAttribute('data-show-progress-bar') === 'True';  // Convertilo in booleano
 
 let requestQueue = []; // Coda per le richieste
 let isProcessing = false; // Flag per gestire il processo
+
+// Se la barra di progresso non deve essere mostrata, nascondila
+if (!showProgressBar) {
+    document.getElementById('progress-bar-container').style.display = 'none';
+}
 
 // Funzione principale per gestire la coda delle richieste
 function processQueue() {
@@ -90,24 +96,43 @@ function calculateProgress() {
 function updateProgressBar(progress) {
     const progressBar = document.getElementById('progress-bar');
     progressBar.style.width = progress + "%"; // Aggiorna la larghezza della barra
-}
-
-// Calcola e aggiorna la barra di progresso all'inizializzazione
-calculateProgress();
-
-// Funzione per aggiornare la barra di progresso
-function updateProgressBar(progress) {
-    const progressBar = document.getElementById('progress-bar');
-    progressBar.style.width = progress + "%"; // Aggiorna la larghezza della barra
 
     // Verifica se la barra ha raggiunto il 100%
     if (progress === 100) {
-        playCompletionSound(); // Riproduci il suono quando la barra arriva al 100%
+        playCompletionSound().then(() => {
+            fadeOutProgressBar(); // Aggiungi la dissolvenza dopo aver riprodotto il suono
+        });
     }
 }
 
 // Funzione per riprodurre il suono quando la barra raggiunge il 100%
 function playCompletionSound() {
-    const completionSound = document.getElementById('completion-sound');
-    completionSound.play(); // Riproduce il suono
+    return new Promise((resolve) => {
+        const completionSound = document.getElementById('completion-sound');
+        completionSound.play(); // Riproduce il suono
+
+        completionSound.onended = () => {
+            resolve(); // Risolvi la promessa quando il suono è finito
+        };
+    });
 }
+
+// Funzione per fare la dissolvenza dell'intero contenitore della barra di progresso
+function fadeOutProgressBar() {
+    const progressBarContainer = document.getElementById('progress-bar-container');
+
+    // Aggiungi la classe fade-out-bar-container per fare la dissolvenza
+    progressBarContainer.classList.add('fade-out-bar-container');
+
+    // Dopo la dissolvenza (1 secondo), resetta la barra per essere pronta per il riutilizzo
+    setTimeout(() => {
+        // Reset della barra di progresso
+        const progressBar = document.getElementById('progress-bar');
+        progressBar.style.width = '0%'; // Rimuovi il riempimento
+    }, 1000); // Tempo di dissolvenza in millisecondi (1 secondo)
+}
+
+
+
+// Calcola e aggiorna la barra di progresso all'inizializzazione
+calculateProgress();

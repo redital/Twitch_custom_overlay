@@ -5,8 +5,7 @@ import barra_punti_canale
 pending_requests = []
 
 def add_request(request):
-    barra_punti_canale.total_cost += int(request["reward"]["cost"])
-    barra_punti_canale.save_punti_canale_info()
+    barra_punti_canale.update_punti_canale_info(int(request["reward"]["cost"]))
     info = {}
     info["user_name"]=request["user_name"]
     info["user_input"]=request["user_input"]

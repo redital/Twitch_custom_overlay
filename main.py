@@ -131,9 +131,11 @@ def channel_point_notification():
 
 @app.route("/render")
 def prova_render():
+    barra_punti_canale.load_punti_canale_info()
     total_cost = barra_punti_canale.total_cost
     max_cost = barra_punti_canale.max_cost
-    return render_template("allert_web_scket_version.html", total_cost=total_cost, max_cost=max_cost)
+    show_progress_bar = barra_punti_canale.show_progress_bar
+    return render_template("allert_web_scket_version.html", total_cost=total_cost, max_cost=max_cost, show_progress_bar=show_progress_bar)
 
 @app.route("/fake_request")
 def fake_request():
