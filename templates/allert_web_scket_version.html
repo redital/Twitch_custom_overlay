@@ -12,10 +12,29 @@
         body {
             font-family: Arial, sans-serif;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
             background-color: #f0f0f000;
+            margin: 0;
+        }
+
+        #progress-bar-container {
+            width: 100%;
+            background-color: #ddd;
+            height: 20px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 10;
+        }
+
+        #progress-bar {
+            height: 100%;
+            width: 0;
+            background-color: #4caf50;
+            transition: width 0.3s ease;
         }
 
         #image_container {
@@ -53,11 +72,17 @@
 </head>
 
 <body>
+    <!-- Barra di progresso -->
+    <div id="progress-bar-container">
+        <div id="progress-bar"></div>
+    </div>
+
     <div class="image_container" id="image_container" height="300">
         <img id="image" src="static\prova\greenscreen_antialiased.png" height="250" />
         <p id="testo"> testo di prova</p>
         <audio id="audio" src="static\prova\1.mp3" style="display:none;"></audio>
     </div>
+
     <script src="static\js\script.js"></script>
 </body>
 

@@ -143,7 +143,7 @@ def fake_request():
     request["reward"]["id"] = "prova reward id"
     request["reward"]["title"] = "Poo Bee"
     request["reward"]["prompt"] = "prova reward prompt"
-    request["reward"]["cost"] = "prova reward cost"
+    request["reward"]["cost"] = "200"
     
     rewards_request_handler.add_request(request)
     handle_incoming_request(rewards_request_handler.pop_request())

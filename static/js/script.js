@@ -1,8 +1,8 @@
-
 const socket = io();
 
 let requestQueue = []; // Coda per le richieste
 let isProcessing = false; // Flag per gestire il processo
+let totalCost = 0; // Variabile per accumulare il costo totale
 
 // Funzione principale per gestire la coda delle richieste
 function processQueue() {
@@ -16,6 +16,14 @@ function processQueue() {
     var image_src = currentRequest.image_src;
     var audio_src = currentRequest.audio_src;
     var testo = currentRequest.testo;
+    var costo = currentRequest.costo;
+
+    // Aggiorna il totale del costo
+    totalCost += costo;
+    console.log(totalCost); 
+
+    // Calcola la percentuale di progresso
+    updateProgressBar();
 
     // Aggiorna l'immagine e l'audio
     document.getElementById('image').src = image_src;
@@ -34,13 +42,23 @@ socket.on("incoming-request", function (data) {
     var image_src = data["data"]["image_src"];
     var audio_src = data["data"]["audio_src"];
     var testo = data["data"]["testo"];
+    var costo = data["data"]["costo"];
 
     // Aggiungi la richiesta alla coda
-    requestQueue.push({ image_src, audio_src, testo });
+    requestQueue.push({ image_src, audio_src, testo, costo });
 
     // Avvia il processo della coda se non è già in corso
     processQueue();
 });
+
+// Funzione per aggiornare la barra di progresso
+function updateProgressBar() {
+    const progressBar = document.getElementById('progress-bar');
+    const maxCost = 1000; // Definisci il costo massimo per il 100% (può essere adattato)
+    
+    let progress = Math.min((totalCost / maxCost) * 100, 100); // Calcola la percentuale
+    progressBar.style.width = progress + "%"; // Aggiorna la larghezza della barra
+}
 
 // Funzione per riprodurre audio e mostrare immagine
 function playSoundAndShowImage() {
