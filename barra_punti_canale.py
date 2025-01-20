@@ -2,7 +2,6 @@ from config import *
 import json
 from config import PUNTI_CANALE_FILE
 
-# Funzione per caricare gli ID degli utenti iscritti
 def load_punti_canale_info():
     try:
         with open(PUNTI_CANALE_FILE, "r") as file:
@@ -13,14 +12,16 @@ def load_punti_canale_info():
     except FileNotFoundError:
         return (0,4_000)
 
-# Funzione per salvare gli ID degli utenti iscritti
-def save_punti_canale_info(total_cost, max_cost):
+def save_punti_canale_info(f_total_cost=None, f_max_cost=None):
+    if not f_total_cost:
+        f_total_cost = total_cost
+    if not f_max_cost:
+        f_max_cost = max_cost
     punti_canale_info = {
-            "total_cost":total_cost, 
-            "max_cost":max_cost
+            "total_cost":f_total_cost, 
+            "max_cost":f_max_cost
         }
     with open(PUNTI_CANALE_FILE, "w") as file:
         json.dump(punti_canale_info, file)
 
-# Lista di utenti iscritti caricata dal file
 total_cost, max_cost = load_punti_canale_info()
