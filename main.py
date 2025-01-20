@@ -153,5 +153,5 @@ def fake_request():
 
 
 if __name__ == '__main__':
-    socketio.init_app(app, async_mode="eventlet")
+    socketio.init_app(app, async_mode="eventlet", ssl_context="adhoc")
     socketio.run(app,**config.flask_app_config)
