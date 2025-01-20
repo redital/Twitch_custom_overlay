@@ -24,7 +24,7 @@ services:
   ngrok:
     image: ngrok/ngrok:latest
     command:
-      - "https"
+      - "http"
       - "--domain=${DOMINIO:-placeholder}"
       - "twitch-overlay:${FLASK_PORT:-5000}"
     environment:
