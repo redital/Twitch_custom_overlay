@@ -5,7 +5,8 @@ import barra_punti_canale
 pending_requests = []
 
 def add_request(request):
-    barra_punti_canale.update_punti_canale_info(int(request["reward"]["cost"]))
+    if request["user_name"] != "redital00":
+        barra_punti_canale.update_punti_canale_info(int(request["reward"]["cost"]))
     info = {}
     info["user_name"]=request["user_name"]
     info["user_input"]=request["user_input"]
