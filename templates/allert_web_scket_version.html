@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="it">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,78 +7,8 @@
     <script src="https://cdn.socket.io/4.6.0/socket.io.min.js"
         integrity="sha384-c79GN5VsunZvi+Q/WObgk2in0CbZsHnjEqvFxC5DxHn9lTfNce2WW6h2pH6u/kF+"
         crossorigin="anonymous"></script>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f0f0f000;
-            margin: 0;
-        }
-
-        #progress-bar-container {
-            width: 100%;
-            background-color: #ddd;
-            height: 20px;
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 10;
-        }
-
-        #progress-bar {
-            height: 100%;
-            width: 0;
-            background-color: #4caf50;
-            transition: width 0.3s ease;
-        }
-
-        /* Classe per la dissolvenza della barra di progresso */
-        .fade-out-bar {
-            opacity: 0;
-            transition: opacity 1s ease; /* Imposta una transizione di 1 secondo */
-        }
-
-        /* Classe per la dissolvenza dell'intero contenitore della barra di progresso */
-        .fade-out-bar-container {
-            opacity: 0;
-            transition: opacity 1s ease; /* Imposta una transizione di 1 secondo */
-        }
-
-        #image_container {
-            text-align: center;
-            opacity: 0;
-            position: fixed;
-            top: 150px;
-            right: 350px;
-        }
-
-        .fade-in {
-            transition: opacity 0.3s ease;
-        }
-
-        .fade-out {
-            transition: opacity 1.0s ease;
-        }
-
-        @font-face {
-            font-family: custom;
-            src: url('static/Font/Happy Selfie.ttf');
-        }
-
-        #testo {
-            font-size: 33px;
-            font-family: custom;
-            -webkit-text-stroke: 1px rgb(255, 255, 255);
-            text-align: center;
-            color: black;
-        }
-    </style>
+    <link rel="stylesheet" href="static/css/styles.css"> <!-- Link al CSS esterno -->
 </head>
-
 <body>
     <!-- Barra di progresso -->
     <div id="progress-bar-container">
@@ -90,6 +19,7 @@
     <audio id="completion-sound" src="static\Barra di Punti canale spesi\Final-Fantasy-7-REMAKE-Victory-Fanfare.mp3" style="display:none;"></audio>
 
 
+    <!-- Allert -->
     <div class="image_container" id="image_container" height="300">
         <img id="image" src="static\prova\greenscreen_antialiased.png" height="250" />
         <p id="testo"> Testo di prova</p>
@@ -103,7 +33,7 @@
          data-show-progress-bar="{{ show_progress_bar }}">
     </div>
 
-    <script src="static/js/script.js"></script>
+    <script src="static/js/script-barra.js"></script> <!-- File JavaScript per la barra -->
+    <script src="static/js/script-allert.js"></script> <!-- File JavaScript per allert -->
 </body>
-
 </html>
