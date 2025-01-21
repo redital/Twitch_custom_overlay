@@ -15,11 +15,11 @@ def load_punti_canale_info():
         return (0,4_000,False)
 
 def save_punti_canale_info(f_total_cost=None, f_max_cost=None, f_show_progress_bar=None):
-    if not f_total_cost:
+    if f_total_cost==None:
         f_total_cost = total_cost
-    if not f_max_cost:
+    if f_max_cost==None:
         f_max_cost = max_cost
-    if not f_show_progress_bar:
+    if f_show_progress_bar==None:
         f_show_progress_bar = show_progress_bar
     punti_canale_info = {
             "total_cost":f_total_cost, 
