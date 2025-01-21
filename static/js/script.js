@@ -86,21 +86,28 @@ function updateTotalCost(costo) {
     calculateProgress();
 }
 
-// Funzione per calcolare e aggiornare la barra di progresso
 function calculateProgress() {
-    const progress = Math.min((totalCost / maxCost) * 100, 100); // Calcola la percentuale
-    updateProgressBar(progress);
+    // Esegui solo se showProgressBar è true
+    if (showProgressBar) {
+        const progress = Math.min((totalCost / maxCost) * 100, 100);
+        updateProgressBar(progress);
+    }
 }
 
-// Funzione per aggiornare la barra di progresso
 function updateProgressBar(progress) {
-    const progressBar = document.getElementById('progress-bar');
-    progressBar.style.width = progress + "%"; // Aggiorna la larghezza della barra
+    // Esegui solo se showProgressBar è true
+    if (!showProgressBar) {
+        return; // Non fare nulla se la barra non deve essere mostrata
+    }
 
-    // Verifica se la barra ha raggiunto il 100%
-    if (progress === 100) {
+    const progressBar = document.getElementById('progress-bar');
+    progressBar.style.width = progress + "%";
+
+    // Verifica se la barra ha raggiunto il 100% solo se la barra è visibile
+    if (progress === 100 && showProgressBar) {
         playCompletionSound().then(() => {
-            fadeOutProgressBar(); // Aggiungi la dissolvenza dopo aver riprodotto il suono
+            showProgressBar = false;
+            fadeOutProgressBar(); // Nascondi la barra dopo il completamento
         });
     }
 }
