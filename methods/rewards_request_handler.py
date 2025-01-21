@@ -1,6 +1,6 @@
 import os
 import random
-import barra_punti_canale
+import methods.barra_punti_canale as barra_punti_canale
 
 pending_requests = []
 

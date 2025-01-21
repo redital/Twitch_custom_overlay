@@ -6,7 +6,7 @@ import config
 from methods import twitch
 from methods import rewards_request_handler
 from methods.events import socketio, handle_incoming_request
-import barra_punti_canale
+import methods.barra_punti_canale as barra_punti_canale
 
 app = Flask(__name__)
 
