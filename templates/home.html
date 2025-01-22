@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,13 +12,16 @@
             padding: 0;
             background-color: #f8f9fa;
         }
+
         h1 {
             color: #343a40;
         }
+
         ul {
             list-style: none;
             padding: 0;
         }
+
         li {
             background: #ffffff;
             border: 1px solid #ddd;
@@ -28,18 +32,22 @@
             justify-content: space-between;
             align-items: center;
         }
+
         a {
             text-decoration: none;
             color: #007bff;
         }
+
         a:hover {
             text-decoration: underline;
         }
+
         .method {
             font-size: 0.9em;
             color: #6c757d;
             margin-left: 10px;
         }
+
         .banner {
             background-color: #ffc107;
             color: #212529;
@@ -49,79 +57,287 @@
             border-radius: 5px;
             font-weight: bold;
         }
+
+        .params {
+            margin-top: 10px;
+        }
+
+        .params input,
+        .params select {
+            margin-right: 10px;
+        }
+
+        .submit-btn {
+            margin-top: 10px;
+            padding: 5px 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .submit-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .show-params-btn {
+            background-color: #28a745;
+            color: white;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .show-params-btn:hover {
+            background-color: #218838;
+        }
+
+        .buttons-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .param-button-container {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            align-items: center;
+        }
     </style>
 </head>
+
 <body>
     <div class="banner">Ricordati di Autenticarti!</div>
     <h1>Lista Endpoint</h1>
     <ul>
-        <!-- Popolamento dinamico con endpoint -->
+        <!-- / -->
         <li>
-            <span>
-                <a href="/">/</a>
-                <span class="method">[GET]</span>
-            </span>
+            <div class="param-button-container">
+                <span>
+                    <a href="/">/</a>
+                    <span class="method">[GET]</span>
+                </span>
+                <div class="buttons-container">
+                    <button class="submit-btn" onclick="openEndpoint('/')">Invia</button>
+                </div>
+            </div>
         </li>
+
+        <!-- /authorization_code_interceptor -->
         <li>
-            <span>
-                <a href="/authorization_code_interceptor">/authorization_code_interceptor</a>
-                <span class="method">[GET]</span>
-            </span>
+            <div class="param-button-container">
+                <span>
+                    <a href="/authorization_code_interceptor">/authorization_code_interceptor</a>
+                    <span class="method">[GET]</span>
+                </span>
+            </div>
+            <div id="params-2" class="params" style="display:none;">
+                <input type="text" id="param2-1" placeholder="code" />
+                <button class="submit-btn"
+                    onclick="openEndpoint('/authorization_code_interceptor?code=' + document.getElementById('param2-1').value)">Invia</button>
+            </div>
+            <div class="buttons-container">
+                <button class="show-params-btn" onclick="toggleParams('params-2')">Parametri</button>
+            </div>
         </li>
+
+        <!-- /authorize -->
         <li>
-            <span>
-                <a href="/authorize">/authorize</a>
-                <span class="method">[GET]</span>
-            </span>
+            <div class="param-button-container">
+                <span>
+                    <a href="/authorize">/authorize</a>
+                    <span class="method">[GET]</span>
+                </span>
+            </div>
+            <div id="params-3" class="params" style="display:none;">
+                <input type="text" id="param3-1" placeholder="scope" />
+                <button class="submit-btn"
+                    onclick="openEndpoint('/authorize?scope=' + document.getElementById('param3-1').value)">Invia</button>
+            </div>
+            <div class="buttons-container">
+                <button class="show-params-btn" onclick="toggleParams('params-3')">Parametri</button>
+            </div>
         </li>
+
+        <!-- /custom_rewards_list -->
         <li>
-            <span>
-                <a href="/custom_rewards_list">/custom_rewards_list</a>
-                <span class="method">[GET]</span>
-            </span>
+            <div class="param-button-container">
+                <span>
+                    <a href="/custom_rewards_list">/custom_rewards_list</a>
+                    <span class="method">[GET]</span>
+                </span>
+                <div class="buttons-container">
+                    <button class="submit-btn" onclick="openEndpoint('/custom_rewards_list')">Invia</button>
+                </div>
+            </div>
         </li>
+
+        <!-- /list -->
         <li>
-            <span>
-                <a href="/list">/list</a>
-                <span class="method">[GET]</span>
-            </span>
+            <div class="param-button-container">
+                <span>
+                    <a href="/list">/list</a>
+                    <span class="method">[GET]</span>
+                </span>
+                <div class="buttons-container">
+                    <button class="submit-btn" onclick="openEndpoint('/list')">Invia</button>
+                </div>
+            </div>
         </li>
+
+        <!-- /subscribe/<service> -->
         <li>
-            <span>
-                <a href="/subscribe/<service>">/subscribe/&lt;service&gt;</a>
-                <span class="method">[GET]</span>
-            </span>
+            <div class="param-button-container">
+                <span>
+                    <a href="/subscribe/<service>">/subscribe/&lt;service&gt;</a>
+                    <span class="method">[GET]</span>
+                </span>
+            </div>
+            <div id="params-6" class="params" style="display:none;">
+                <input type="text" id="param6-1" placeholder="service" />
+                <input type="text" id="param6-2" placeholder="version" />
+                <input type="text" id="param6-3" placeholder="id" />
+                <button class="submit-btn"
+                    onclick="openEndpoint('/subscribe/' + document.getElementById('param6-1').value + '?version=' + document.getElementById('param6-2').value + '&id=' + document.getElementById('param6-3').value)">Invia</button>
+            </div>
+            <div class="buttons-container">
+                <button class="show-params-btn" onclick="toggleParams('params-6')">Parametri</button>
+            </div>
         </li>
+
+        <!-- /subscribe/punti_canale/<nome_premio> -->
         <li>
-            <span>
-                <a href="/subscribe/punti_canale/<nome_premio>">/subscribe/punti_canale/&lt;nome_premio&gt;</a>
-                <span class="method">[GET]</span>
-            </span>
+            <div class="param-button-container">
+                <span>
+                    <a href="/subscribe/punti_canale/<nome_premio>">/subscribe/punti_canale/&lt;nome_premio&gt;</a>
+                    <span class="method">[GET]</span>
+                </span>
+            </div>
+            <div id="params-7" class="params" style="display:none;">
+                <input type="text" id="param7-1" placeholder="nome_premio" />
+                <button class="submit-btn"
+                    onclick="openEndpoint('/subscribe/punti_canale/' + document.getElementById('param7-1').value)">Invia</button>
+            </div>
+            <div class="buttons-container">
+                <button class="show-params-btn" onclick="toggleParams('params-7')">Parametri</button>
+            </div>
         </li>
+
+        <!-- /subscribe/delete/<id> -->
         <li>
-            <span>
-                <a href="/subscribe/delete/<id>">/subscribe/delete/&lt;id&gt;</a>
-                <span class="method">[GET]</span>
-            </span>
+            <div class="param-button-container">
+                <span>
+                    <a href="/subscribe/delete/<id>">/subscribe/delete/&lt;id&gt;</a>
+                    <span class="method">[GET]</span>
+                </span>
+            </div>
+            <div id="params-8" class="params" style="display:none;">
+                <input type="text" id="param8-1" placeholder="id" />
+                <button class="submit-btn"
+                    onclick="openEndpoint('/subscribe/delete/' + document.getElementById('param8-1').value)">Invia</button>
+            </div>
+            <div class="buttons-container">
+                <button class="show-params-btn" onclick="toggleParams('params-8')">Parametri</button>
+            </div>
         </li>
+
+        <!-- /channel_point_notification (POST) -->
         <li>
-            <span>
-                <a href="/channel_point_notification">/channel_point_notification</a>
-                <span class="method">[POST]</span>
-            </span>
+            <div class="param-button-container">
+                <span>
+                    <a href="/channel_point_notification">/channel_point_notification</a>
+                    <span class="method">[POST]</span>
+                </span>
+            </div>
+            <div id="params-9" class="params" style="display:none;">
+                <input type="text" id="param9-1" placeholder="body JSON" />
+                <button class="submit-btn"
+                    onclick="openEndpoint('/channel_point_notification?body=' + document.getElementById('param9-1').value)">Invia</button>
+            </div>
+            <div class="buttons-container">
+                <button class="show-params-btn" onclick="toggleParams('params-9')">Parametri</button>
+            </div>
         </li>
+
+        <!-- /set_new_channel_rewards_goal -->
         <li>
-            <span>
-                <a href="/render">/render</a>
-                <span class="method">[GET]</span>
-            </span>
+            <div class="param-button-container">
+                <span>
+                    <a href="/set_new_channel_rewards_goal">/set_new_channel_rewards_goal</a>
+                    <span class="method">[GET]</span>
+                </span>
+            </div>
+            <div id="params-10" class="params" style="display:none;">
+                <input type="text" id="param10-1" placeholder="goal" />
+                <label for="param10-2">Azzera punti attuali:</label>
+                <input type="checkbox" id="param10-2" checked />
+                <button class="submit-btn"
+                    onclick="openEndpoint('/set_new_channel_rewards_goal?goal=' + document.getElementById('param10-1').value + '&azzera_punti_attuali=' + (document.getElementById('param10-2').checked ? 'true' : 'false'))">Invia</button>
+            </div>
+            <div class="buttons-container">
+                <button class="show-params-btn" onclick="toggleParams('params-10')">Parametri</button>
+            </div>
         </li>
+
+        <!-- /add_points_to_goal_bar -->
         <li>
-            <span>
-                <a href="/fake_request">/fake_request</a>
-                <span class="method">[GET]</span>
-            </span>
+            <div class="param-button-container">
+                <span>
+                    <a href="/add_points_to_goal_bar">/add_points_to_goal_bar</a>
+                    <span class="method">[GET]</span>
+                </span>
+            </div>
+            <div id="params-11" class="params" style="display:none;">
+                <input type="text" id="param11-1" placeholder="amount" />
+                <button class="submit-btn"
+                    onclick="openEndpoint('/add_points_to_goal_bar?amount=' + document.getElementById('param11-1').value)">Invia</button>
+            </div>
+            <div class="buttons-container">
+                <button class="show-params-btn" onclick="toggleParams('params-11')">Parametri</button>
+            </div>
+        </li>
+
+        <!-- /render -->
+        <li>
+            <div class="param-button-container">
+                <span>
+                    <a href="/render">/render</a>
+                    <span class="method">[GET]</span>
+                </span>
+                <div class="buttons-container">
+                    <button class="submit-btn" onclick="openEndpoint('/render')">Invia</button>
+                </div>
+            </div>
+        </li>
+
+        <!-- /fake_request -->
+        <li>
+            <div class="param-button-container">
+                <span>
+                    <a href="/fake_request">/fake_request</a>
+                    <span class="method">[GET]</span>
+                </span>
+                <div class="buttons-container">
+                    <button class="submit-btn" onclick="openEndpoint('/fake_request')">Invia</button>
+                </div>
+            </div>
         </li>
     </ul>
+
+    <script>
+        // Funzione per mostrare e nascondere i parametri
+        function toggleParams(id) {
+            const paramsDiv = document.getElementById(id);
+            paramsDiv.style.display = paramsDiv.style.display === 'none' ? 'block' : 'none';
+        }
+
+        // Funzione per aprire un endpoint con i parametri
+        function openEndpoint(url) {
+            window.open(url, '_blank');
+        }
+    </script>
 </body>
+
 </html>
