@@ -12,3 +12,11 @@ def handle_connect():
 def handle_incoming_request(data):
     print(data)
     socketio.emit("incoming-request", data)
+
+def handle_new_goal(data):
+    print(data)
+    socketio.emit("update-goal", data)
+    
+def handle_points_update(data):
+    print(data)
+    socketio.emit("increment-total-cost", data)

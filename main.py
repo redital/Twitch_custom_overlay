@@ -5,7 +5,7 @@ from urllib.parse import urlencode
 import config
 from methods import twitch
 from methods import rewards_request_handler
-from methods.events import socketio, handle_incoming_request
+from methods import events
 from methods import barra_punti_canale
 
 app = Flask(__name__)
@@ -113,9 +113,48 @@ def channel_point_notification():
         return res
     # Effettivo intento dell'endpoint
     rewards_request_handler.add_request(body["event"])
-    handle_incoming_request(rewards_request_handler.pop_request())
+    events.handle_incoming_request(rewards_request_handler.pop_request())
     print(body["event"]["reward"]["title"] + " riscattato da " + body["event"]["user_name"])
     return ""
+
+
+@app.route("/set_new_channel_rewards_goal")
+def set_new_channel_rewards_goal():
+    goal = flask_request.args.get('goal')
+    azzera_punti_attuali = flask_request.args.get('azzera_punti_attuali',True)
+    print(azzera_punti_attuali)
+    print(not(azzera_punti_attuali.lower() == "false"))
+    if not goal:
+        return "Bad Request<br><br>Immettere il numero di punti canale da impostare come obiettivo", 400
+    try:
+        goal = int(goal)
+        azzera_punti_attuali = not(azzera_punti_attuali.lower() == "false")
+    except TypeError:
+        return "Bad Request<br><br>Il goal deve essere un intero e azzera_punti_attuali un booleano", 400
+    except ValueError:
+        return "Bad Request<br><br>Il goal deve essere un intero e azzera_punti_attuali un booleano", 400
+    if azzera_punti_attuali:
+        barra_punti_canale.total_cost = 0
+    barra_punti_canale.save_punti_canale_info(None,goal,True)
+    data = {}
+    events.handle_new_goal(data)
+    return "Nuovo obbiettivo punti canale impostato a {}".format(goal)
+
+@app.route("/add_points_to_goal_bar")
+def add_points_to_goal_bar():
+    amount = flask_request.args.get('amount')
+    if not amount:
+        return "Bad Request<br><br>Immettere il numero di punti canale da impostare come obiettivo", 400
+    try:
+        amount = int(amount)
+    except TypeError:
+        return "Bad Request<br><br>Il goal deve essere un intero", 400
+    except ValueError:
+        return "Bad Request<br><br>Il goal deve essere un intero", 400
+    data = {"increment": amount}
+    events.handle_points_update(data)
+    barra_punti_canale.update_punti_canale_info(amount)
+    return "Aggiunti {} punti".format(amount)
 
 # Serviva nell'approccio polling
 #@app.route("/get_pending_reward_request")
@@ -151,12 +190,12 @@ def fake_request():
     request["reward"]["cost"] = "200"
     
     rewards_request_handler.add_request(request)
-    handle_incoming_request(rewards_request_handler.pop_request())
+    events.handle_incoming_request(rewards_request_handler.pop_request())
 
     return "Fatto"
 
 
 
 if __name__ == '__main__':
-    socketio.init_app(app, async_mode="eventlet", ssl_context="adhoc")
-    socketio.run(app,**config.flask_app_config)
+    events.socketio.init_app(app, async_mode="eventlet", ssl_context="adhoc")
+    events.socketio.run(app,**config.flask_app_config)

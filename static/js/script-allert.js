@@ -1,5 +1,3 @@
-const socket = io();
-
 let requestQueue = []; // Coda per le richieste
 let isProcessing = false; // Flag per gestire il processo
 

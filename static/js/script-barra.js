@@ -4,6 +4,20 @@ var totalCost = parseFloat(costInfoElement.getAttribute('data-total-cost'));
 const maxCost = parseFloat(costInfoElement.getAttribute('data-max-cost'));
 var showProgressBar = costInfoElement.getAttribute('data-show-progress-bar') === 'True';  // Convertilo in booleano
 
+
+// Aggiungi un listener per l'aggiornamento del totalCost
+socket.on('increment-total-cost', function (data) {
+    // Ricarica la pagina per applicare i nuovi valori
+    var cost_to_add = data.increment;
+    updateTotalCost(cost_to_add)
+});
+
+// Aggiungi un listener per l'aggiornamento dell'obiettivo
+socket.on('update-goal', function (data) {
+    // Ricarica la pagina per applicare il nuovo obiettivo
+    window.location.reload();
+});
+
 // Se la barra di progresso non deve essere mostrata, nascondila
 if (!showProgressBar) {
     document.getElementById('progress-bar-container').style.display = 'none';
