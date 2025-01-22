@@ -83,7 +83,10 @@ def sottoscrivi_evento_riscatto_punti_canale(nome_premio):
     servizio = "channel.channel_points_custom_reward_redemption.add"
     versione = 1
     premi = lista_premi().get_json()
-    premio = premi[nome_premio]
+    try:
+        premio = premi[nome_premio]
+    except KeyError:
+        return "Bad Request<br><br>Il premio {} non esiste".format(nome_premio), 400
     id_premio = premio["id"]
     
     return redirect("/subscribe/{}?version={}&id={}".format(servizio,versione,id_premio))
@@ -122,8 +125,6 @@ def channel_point_notification():
 def set_new_channel_rewards_goal():
     goal = flask_request.args.get('goal')
     azzera_punti_attuali = flask_request.args.get('azzera_punti_attuali',True)
-    print(azzera_punti_attuali)
-    print(not(azzera_punti_attuali.lower() == "false"))
     if not goal:
         return "Bad Request<br><br>Immettere il numero di punti canale da impostare come obiettivo", 400
     try:
