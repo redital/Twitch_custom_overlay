@@ -17,6 +17,8 @@ def add_request(request):
     info["data"]={}
     try:
         info = handlers[info["reward_title"]](info)
+        if request["user_name"] == "redital00":
+            info["data"]["costo"]=0
     except KeyError:
         print("Ricompensa punti canale {} non gestita".format(info["reward_title"]))
         return
