@@ -20,7 +20,7 @@ socket.on('update-goal', function (data) {
 
 // Se la barra di progresso non deve essere mostrata, nascondila
 if (!showProgressBar) {
-    document.getElementById('progress-bar-container').style.display = 'none';
+    document.getElementById('progress-bar-wrapper').style.display = 'none';
 }
 
 // Funzione per aggiornare il totale del costo
@@ -37,6 +37,7 @@ function calculateProgress() {
     }
 }
 
+// Funzione per aggiornare la barra di progresso
 function updateProgressBar(progress) {
     // Esegui solo se showProgressBar è true
     if (!showProgressBar) {
@@ -50,7 +51,7 @@ function updateProgressBar(progress) {
     if (progress === 100 && showProgressBar) {
         playCompletionSound().then(() => {
             showProgressBar = false;
-            fadeOutProgressBar(); // Nascondi la barra dopo il completamento
+            fadeOutProgressBar(); // Nascondi il wrapper dopo il completamento
         });
     }
 }
@@ -67,12 +68,12 @@ function playCompletionSound() {
     });
 }
 
-// Funzione per fare la dissolvenza dell'intero contenitore della barra di progresso
+// Funzione per fare la dissolvenza dell'intero wrapper della barra di progresso
 function fadeOutProgressBar() {
-    const progressBarContainer = document.getElementById('progress-bar-container');
+    const progressBarWrapper = document.getElementById('progress-bar-wrapper');
 
-    // Aggiungi la classe fade-out-bar-container per fare la dissolvenza
-    progressBarContainer.classList.add('fade-out-bar-container');
+    // Aggiungi la classe fade-out-wrapper per fare la dissolvenza sul wrapper (e non solo sulla barra)
+    progressBarWrapper.classList.add('fade-out-wrapper');
 
     // Dopo la dissolvenza (1 secondo), resetta la barra per essere pronta per il riutilizzo
     setTimeout(() => {

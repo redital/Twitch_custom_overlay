@@ -5,39 +5,72 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #f0f0f000;
+    background-color: #00000000;
     margin: 0;
+    overflow: hidden; /* Per evitare eventuali scroll */
 }
 
+/* Contenitore che ospita barra e immagine */
+#progress-bar-wrapper {
+    position: relative;
+    width: 30vw; /* La larghezza del contenitore è il 80% della larghezza del viewport */
+    height: auto; /* Altezza automatica per mantenere l'allineamento */
+    top: -50%; /* Impostiamo la posizione in alto */
+    left: 0%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Classe per la dissolvenza dell'intero wrapper */
+.fade-out-wrapper {
+    opacity: 0;
+    transition: opacity 1s ease; /* Imposta una transizione di dissolvenza di 1 secondo */
+    pointer-events: none; /* Opzionale, per evitare che l'utente interagisca con il wrapper mentre è nascosto */
+}
+
+
+/* Barra di progresso */
 #progress-bar-container {
-    width: 100%;
-    background-color: #ddd;
-    height: 20px;
-    position: fixed;
-    top: 0;
-    left: 0;
+    width: 77%; /* La barra occupa tutta la larghezza del contenitore */
+    height: 40px; /* Altezza della barra */
+    background-color: #ff000000;
+    top: 510%;
+    left: 7%;
+    position: relative;
     z-index: 10;
 }
 
 #progress-bar {
+    width: 0%; /* Inizialmente la larghezza è 0 */
     height: 100%;
-    width: 0;
-    background-color: #4caf50;
-    transition: width 0.3s ease;
+    background-color: #6d97ff;
 }
 
-/* Classe per la dissolvenza della barra di progresso */
+/* Posizionamento dell'immagine sopra la barra */
+#progress-bar-overlay {
+    width: 100%; /* L'immagine si adatta alla larghezza del contenitore */
+    height: 30px; /* Altezza dell'immagine */
+    position: absolute; /* Posizione assoluta sopra la barra */
+    top: 0;
+    left: 0;
+    z-index: 20;
+}
+
+#progress-bar-image {
+    width: 100%; /* L'immagine copre tutta la larghezza della barra */
+    height: auto; /* Mantieni l'aspect ratio */
+    opacity: 1;
+}
+
+/* Dissolvenza della barra */
 .fade-out-bar {
     opacity: 0;
-    transition: opacity 1s ease; /* Imposta una transizione di 1 secondo */
+    transition: opacity 1s ease;
 }
 
-/* Classe per la dissolvenza dell'intero contenitore della barra di progresso */
-.fade-out-bar-container {
-    opacity: 0;
-    transition: opacity 1s ease; /* Imposta una transizione di 1 secondo */
-}
-
+/* Contenitore per l'immagine di allerta */
 #image_container {
     text-align: center;
     opacity: 0;
@@ -54,6 +87,7 @@ body {
     transition: opacity 1.0s ease;
 }
 
+/* Font personalizzato */
 @font-face {
     font-family: custom;
     src: url('static/Font/Happy Selfie.ttf');

@@ -10,20 +10,26 @@
     <link rel="stylesheet" href="static/css/styles.css"> <!-- Link al CSS esterno -->
 </head>
 <body>
-    <!-- Barra di progresso -->
-    <div id="progress-bar-container">
-        <div id="progress-bar"></div>
+    <!-- Contenitore della barra di progresso e immagine -->
+    <div id="progress-bar-wrapper">
+        <div id="progress-bar-container">
+            <div id="progress-bar"></div>
+        </div>
+
+        <!-- Immagine estetica sopra la barra -->
+        <div id="progress-bar-overlay">
+            <img id="progress-bar-image" src="static\Barra di Punti canale spesi\barra.png" alt="Bar Mask" />
+        </div>
     </div>
 
     <!-- Audio per quando la barra arriva al 100% -->
-    <audio id="completion-sound" src="static\Barra di Punti canale spesi\Final-Fantasy-7-REMAKE-Victory-Fanfare.mp3" style="display:none;"></audio>
-
+    <audio id="completion-sound" src="static/Barra di Punti canale spesi/Final-Fantasy-7-REMAKE-Victory-Fanfare.mp3" style="display:none;"></audio>
 
     <!-- Allert -->
     <div class="image_container" id="image_container" height="300">
-        <img id="image" src="static\prova\greenscreen_antialiased.png" height="250" />
+        <img id="image" src="static/prova/greenscreen_antialiased.png" height="250" />
         <p id="testo"> Testo di prova</p>
-        <audio id="audio" src="static\prova\1.mp3" style="display:none;"></audio>
+        <audio id="audio" src="static/prova/1.mp3" style="display:none;"></audio>
     </div>
 
     <!-- Passaggio delle variabili total_cost e max_cost come data-attributes -->
