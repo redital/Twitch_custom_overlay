@@ -34,9 +34,9 @@ body {
 /* Barra di progresso */
 #progress-bar-container {
     width: 77%; /* La barra occupa tutta la larghezza del contenitore */
-    height: 40px; /* Altezza della barra */
+    height: 20px; /* Altezza della barra */
     background-color: #ff000000;
-    top: 510%;
+    top: 125px;
     left: 7%;
     position: relative;
     z-index: 10;
