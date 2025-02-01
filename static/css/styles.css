@@ -13,12 +13,12 @@ body {
 /* Contenitore che ospita barra e immagine */
 #progress-bar-wrapper {
     position: relative;
-    width: 30vw; /* La larghezza del contenitore è il 80% della larghezza del viewport */
+    width: 30vw; /* La larghezza del contenitore è il 30% della larghezza del viewport */
     height: auto; /* Altezza automatica per mantenere l'allineamento */
-    top: -50%; /* Impostiamo la posizione in alto */
-    left: 0%;
+    top: 50%; /* Centriamo verticalmente */
+    left: 50%; /* Centriamo orizzontalmente */
+    transform: translate(-50%, -50%); /* Per centrare esattamente */
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
@@ -33,12 +33,10 @@ body {
 
 /* Barra di progresso */
 #progress-bar-container {
-    width: 77%; /* La barra occupa tutta la larghezza del contenitore */
+    position: relative;
+    width: 100%; /* La barra occupa tutta la larghezza del contenitore */
     height: 20px; /* Altezza della barra */
     background-color: #ff000000;
-    top: 125px;
-    left: 7%;
-    position: relative;
     z-index: 10;
 }
 
@@ -50,17 +48,18 @@ body {
 
 /* Posizionamento dell'immagine sopra la barra */
 #progress-bar-overlay {
-    width: 100%; /* L'immagine si adatta alla larghezza del contenitore */
-    height: 30px; /* Altezza dell'immagine */
     position: absolute; /* Posizione assoluta sopra la barra */
     top: 0;
     left: 0;
+    width: 100%; /* L'immagine si adatta alla larghezza del contenitore */
+    height: 100%; /* Altezze corrispondenti */
     z-index: 20;
 }
 
 #progress-bar-image {
     width: 100%; /* L'immagine copre tutta la larghezza della barra */
-    height: auto; /* Mantieni l'aspect ratio */
+    height: 100%; /* L'immagine occupa tutta l'altezza */
+    object-fit: cover; /* Assicura che l'immagine copra tutto il contenitore senza distorsioni */
     opacity: 1;
 }
 
