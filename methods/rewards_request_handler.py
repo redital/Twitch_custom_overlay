@@ -86,11 +86,19 @@ def triplo_venti_handler(info):
     info["data"]["costo"]=int(info["reward_cost"])
     return info
 
+def polemical_handler(info):
+    info["data"]["image_src"]="static/TRIPLO VENTI/il nulla.png"
+    info["data"]["audio_src"]="static\Polemical\gigle polemical(1).mp3"
+    info["data"]["testo"]=""
+    info["data"]["costo"]=int(info["reward_cost"])
+    return info
+
 handlers = {
     "Random Imperium" : random_imperium_handler,
     "Poo Bee" : poo_bee_handler,
     "A munnezz d'a gent" : a_munnezz_handler,
     "Lurkino <3 " : lurk_handler,
     "Leggiamo una poesia" : poesia_handler,
-    "TRIPLO VENTI" : triplo_venti_handler
+    "TRIPLO VENTI" : triplo_venti_handler,
+    "Polemical" : polemical_handler
 }
